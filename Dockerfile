@@ -1,5 +1,4 @@
-
-FROM openjdk:17-jdk-slim
-COPY target/*.jar /app.jar
-ENTRYPOINT ["java","--add-opens","java.base/java.lang=ALL-UNNAMED","-jar","/app.jar"]
-
+FROM openjdk:8-jdk-slim
+WORKDIR /app
+COPY target/*.jar app.jar
+ENTRYPOINT ["java","-jar","app.jar"]
