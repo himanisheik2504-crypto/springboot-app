@@ -1,0 +1,37 @@
+# Azure DevOps Pipeline for Java Maven build on self-hosted agent
+ 
+trigger:
+- delete-files   # or your branch name
+ 
+pool:
+  name: 'pool-232'   # your self-hosted agent pool
+ 
+variables:
+  JAVA_HOME: '/usr/lib/jvm/java-17-openjdk-amd64'
+ 
+steps:
+ 
+# 1️⃣ Verify Java version (debug step)
+- script: |
+    echo "JAVA_HOME: $JAVA_HOME"
+    java -version
+    javac -version
+  displayName: 'Check Java Environment'
+ 
+# 2️⃣ Maven build
+- task: Maven@4   # Use Maven@4 to avoid deprecated warning
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: 'clean package'
+    javaHomeOption: 'JDkvERSION'    # Use system JAVA_HOME, not JDKVersion
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    options: '-Xmx3072m'
+ 
+# 3️⃣ Publish build artifacts
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(System.DefaultWorkingDirectory)'  # your Maven build output
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+ 
