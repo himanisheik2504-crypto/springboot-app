@@ -1,7 +1,7 @@
 # Azure DevOps Pipeline for Java Maven build on self-hosted agent
  
 trigger:
-- delete-files   # or your branch name
+- main
  
 pool:
   name: 'pool-232'   # your self-hosted agent pool
