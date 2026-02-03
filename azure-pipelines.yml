@@ -26,7 +26,7 @@ steps:
     javaHomeOption: 'JDKVersion'    # Use system JAVA_HOME, not JDKVersion
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    options: '-Xmx3072m'
+    Mavenoptions: '-Xmx3072m'
  
 # 3️⃣ Publish build artifacts
 - task: PublishBuildArtifacts@1
