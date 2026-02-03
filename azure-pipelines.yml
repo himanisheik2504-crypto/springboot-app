@@ -38,7 +38,8 @@ steps:
 - task: Docker@2
   inputs:
     containerRegistry: 'pocaksacr'
-    repository: 'acre-repo1'
+    repository: 'pocaksacr.azurecr.io/acre-repo1'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
+    tags: latest
  
