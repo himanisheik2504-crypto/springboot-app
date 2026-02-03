@@ -23,7 +23,7 @@ steps:
   inputs:
     mavenPomFile: 'pom.xml'
     goals: 'clean package'
-    javaHomeOption: 'JDkvERSION'    # Use system JAVA_HOME, not JDKVersion
+    javaHomeOption: 'JDKVersion'    # Use system JAVA_HOME, not JDKVersion
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     options: '-Xmx3072m'
@@ -34,4 +34,11 @@ steps:
     PathtoPublish: '$(System.DefaultWorkingDirectory)'  # your Maven build output
     ArtifactName: 'drop'
     publishLocation: 'Container'
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'pocaksacr'
+    repository: 'acre-repo1'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
  
